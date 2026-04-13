@@ -4,23 +4,24 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import pattern.AbstractSubject;
 import pattern.Observer;
 import pattern.Subject;
 
 /**
- * Patron Observer — ConcreteSubject #2
- * Serializable    — zoom et translation sont des primitives, donc directement sérialisables
+ * Patron Observer : ConcreteSubject #2
+ * Serializable    : zoom et translation sont des primitives, donc directement sérialisables
  *
  * Représente l'état d'affichage d'une vue : facteur de zoom et décalage (translation).
  * Chaque PerspectiveView possède sa propre instance de Perspective.
  *
  * Correspondance patron Observer :
- *   ConcreteSubject    →  Perspective
- *   subjectState       →  zoomFactor, translateX, translateY
- *   attach(Observer)   →  addObserver(Observer)
- *   notifyObservers()  →  notifyObservers()
+ *   ConcreteSubject > Perspective
+ *   subjectState >  zoomFactor, translateX, translateY
+ *   attach(Observer) > addObserver(Observer)
+ *   notifyObservers() > notifyObservers()
  */
-public class Perspective implements Subject, Serializable {
+public class Perspective extends AbstractSubject  {
 
     private static final long serialVersionUID = 1L;
 
@@ -35,12 +36,6 @@ public class Perspective implements Subject, Serializable {
     public static final double ZOOM_DEFAULT = 1.0;
     public static final double ZOOM_STEP   = 0.1;
 
-    // Liste des observateurs (transient : non sérialisée)
-    private transient List<Observer> observers = new ArrayList<>();
-
-    // -------------------------------------------------------------------------
-    // Constructeur
-    // -------------------------------------------------------------------------
 
     public Perspective() {
         this.zoomFactor = ZOOM_DEFAULT;
@@ -48,41 +43,15 @@ public class Perspective implements Subject, Serializable {
         this.translateY = 0.0;
     }
 
-    /** Constructeur de copie — utilisé par PerspectiveMemento */
+    /** Constructeur de copie : utilisé par PerspectiveMemento */
     public Perspective(Perspective other) {
         this.zoomFactor = other.zoomFactor;
         this.translateX = other.translateX;
         this.translateY = other.translateY;
     }
+    
 
-    // -------------------------------------------------------------------------
-    // Patron Observer
-    // -------------------------------------------------------------------------
-
-    @Override
-    public void addObserver(Observer o) {
-        if (!observers.contains(o)) {
-            observers.add(o);
-        }
-    }
-
-    @Override
-    public void removeObserver(Observer o) {
-        observers.remove(o);
-    }
-
-    @Override
-    public void notifyObservers() {
-        if (observers != null) {
-            for (Observer o : observers) {
-                o.update();
-            }
-        }
-    }
-
-    // -------------------------------------------------------------------------
     // Opérations sur la perspective
-    // -------------------------------------------------------------------------
 
     /**
      * Modifie le facteur de zoom (borné entre ZOOM_MIN et ZOOM_MAX).
@@ -136,10 +105,7 @@ public class Perspective implements Subject, Serializable {
         this.observers = new ArrayList<>();
     }
 
-    // -------------------------------------------------------------------------
-    // Getters / Setters directs (sans notification — pour Memento)
-    // -------------------------------------------------------------------------
-
+    // Getters / Setters directs (sans notification : pour Memento)
     public double getZoomFactor()  { return zoomFactor; }
     public double getTranslateX()  { return translateX; }
     public double getTranslateY()  { return translateY; }

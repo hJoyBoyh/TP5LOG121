@@ -3,13 +3,13 @@ package pattern;
 import model.Perspective;
 
 /**
- * Patron Strategy — interface pour la fonctionnalité Copier-Coller (bonus).
+ * Patron Strategy : interface pour la fonctionnalité Copier-Coller (bonus).
  * Permet de choisir ce qui est copié d'une perspective : zoom seulement,
  * translation seulement, ou les deux.
  *
  * Correspondance patron :
- *   Strategy (GoF)    →  CopyStrategy (ici)
- *   algorithm()       →  apply(source, target)
+ *   Strategy (GoF) > CopyStrategy (ici)
+ *   algorithm() > apply(source, target)
  *
  * Stratégies concrètes :
  *   - ZoomOnlyStrategy        : copie uniquement le facteur d'échelle

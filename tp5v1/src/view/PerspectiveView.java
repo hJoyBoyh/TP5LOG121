@@ -13,7 +13,7 @@ import model.Perspective;
 import pattern.Observer;
 
 /**
- * Patron Observer — ConcreteObserver (vue avec zoom et translation).
+ * Patron Observer : ConcreteObserver (vue avec zoom et translation).
  * Observe ImageModel ET Perspective.
  */
 public class PerspectiveView implements Observer {
@@ -27,7 +27,7 @@ public class PerspectiveView implements Observer {
         this.imageModel  = imageModel;
         this.perspective = perspective;
 
-        // Utiliser un Pane simple — le Canvas se lie à sa taille via bind()
+        // Utiliser un Pane simple : le Canvas se lie à sa taille via bind()
         this.canvas = new Canvas();
         this.pane   = new Pane(canvas);
 

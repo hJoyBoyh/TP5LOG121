@@ -1,13 +1,13 @@
 package pattern;
 
 /**
- * Patron Observer — interface Observer (abonné).
+ * Patron Observer : interface Observer (abonné).
  * Toute vue qui veut être notifiée des changements du modèle doit
  * implémenter cette interface.
  *
  * Correspondance patron :
- *   Observer (GoF)  →  Observer (ici)
- *   update()        →  update()
+ *   Observer (GoF) >  Observer (ici)
+ *   update() >  update()
  */
 public interface Observer {
 

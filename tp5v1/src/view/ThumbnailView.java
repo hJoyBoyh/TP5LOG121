@@ -11,7 +11,7 @@ import model.ImageModel;
 import pattern.Observer;
 
 /**
- * Patron Observer — vignette (thumbnail).
+ * Patron Observer : vignette (thumbnail).
  * Affiche l'image entière réduite, centrée, ratio conservé.
  */
 public class ThumbnailView implements Observer {

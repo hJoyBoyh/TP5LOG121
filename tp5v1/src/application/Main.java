@@ -17,8 +17,7 @@ import view.MainView;
  *   - Ctrl    : MouseController, ZoomCommand, TranslationCommand (créés dans MainView)
  */
 public class Main extends Application {
-
-	@Override
+@Override
 	public void start(Stage primaryStage) {
 		try {
 			// --- MODÈLE ---

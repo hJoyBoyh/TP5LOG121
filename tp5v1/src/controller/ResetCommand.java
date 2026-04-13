@@ -1,38 +1,26 @@
 package controller;
 
 import model.Perspective;
-import model.PerspectiveMemento;
-import pattern.Command;
 
 /**
- * Patron Command — remet une perspective à son état initial (zoom=1, tx=0, ty=0).
+ * Patron Command : remet une perspective à son état initial (zoom=1, tx=0, ty=0).
  * Utile pour un bouton "Réinitialiser" ou double-clic sur la vue.
+ * Patron Memento : géré par la classe mère AbstractPerspectiveCommand.
  *
  * Correspondance patron Command :
- *   ConcreteCommand  →  ResetCommand
- *   execute()        →  sauvegarde Memento + reset
- *   undo()           →  restaure l'état précédent le reset
+ * ConcreteCommand >  ResetCommand
+ * doAction() >  applique la réinitialisation
  */
-public class ResetCommand implements Command {
-
-    private final Perspective        perspective;
-    private       PerspectiveMemento savedState;
+public class ResetCommand extends AbstractPerspectiveCommand {
 
     public ResetCommand(Perspective perspective) {
-        this.perspective = perspective;
+        super(perspective);
     }
 
     @Override
-    public void execute() {
-        savedState = new PerspectiveMemento(perspective);
-        perspective.reset();
-    }
-
-    @Override
-    public void undo() {
-        if (savedState != null) {
-            savedState.restore(perspective);
-        }
+    protected void doAction() {
+        // L'attribut 'this.perspective' est hérité de la classe mère
+        this.perspective.reset();
     }
 
     @Override

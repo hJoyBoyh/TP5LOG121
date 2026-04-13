@@ -1,25 +1,19 @@
 package controller;
 
 import model.Perspective;
-import model.PerspectiveMemento;
-import pattern.Command;
 
 /**
- * Patron Command — encapsule l'opération de translation pour permettre undo/redo.
- * Patron Memento — sauvegarde l'état AVANT d'exécuter pour pouvoir restaurer.
+ * Patron Command : encapsule l'opération de translation pour permettre undo/redo.
+ * Patron Memento : géré par la classe mère AbstractPerspectiveCommand.
  *
  * Correspondance patron Command :
- *   ConcreteCommand  →  TranslationCommand
- *   Receiver         →  Perspective
- *   execute()        →  sauvegarde Memento + applique deltaX/deltaY
- *   undo()           →  restaure depuis le Memento
+ * ConcreteCommand >  TranslationCommand
+ * doAction() > applique deltaX/deltaY
  */
-public class TranslationCommand implements Command {
+public class TranslationCommand extends AbstractPerspectiveCommand {
 
-    private final Perspective        perspective;
-    private final double             deltaX;
-    private final double             deltaY;
-    private       PerspectiveMemento savedState;
+    private final double deltaX;
+    private final double deltaY;
 
     /**
      * @param perspective  la perspective ciblée (vue 1 ou vue 2)
@@ -27,24 +21,15 @@ public class TranslationCommand implements Command {
      * @param deltaY       déplacement vertical en pixels
      */
     public TranslationCommand(Perspective perspective, double deltaX, double deltaY) {
-        this.perspective = perspective;
-        this.deltaX      = deltaX;
-        this.deltaY      = deltaY;
+        super(perspective);
+        this.deltaX = deltaX;
+        this.deltaY = deltaY;
     }
 
-    /** Sauvegarde l'état courant puis applique la translation. */
     @Override
-    public void execute() {
-        savedState = new PerspectiveMemento(perspective);  // Memento AVANT
-        perspective.applyTranslationDelta(deltaX, deltaY);
-    }
-
-    /** Restaure la position avant la translation. */
-    @Override
-    public void undo() {
-        if (savedState != null) {
-            savedState.restore(perspective);               // Memento RESTAURÉ
-        }
+    protected void doAction() {
+        // L'attribut 'this.perspective' est hérité de la classe mère
+        this.perspective.applyTranslationDelta(deltaX, deltaY);
     }
 
     @Override

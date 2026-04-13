@@ -3,16 +3,16 @@ package model;
 import java.io.Serializable;
 
 /**
- * Patron Memento — sauvegarde l'état interne d'une Perspective.
+ * Patron Memento : sauvegarde l'état interne d'une Perspective.
  * Utilisé par ZoomCommand et TranslationCommand pour permettre le undo/redo
  * sans exposer l'état interne de Perspective.
  *
  * Correspondance patron Memento :
- *   Memento         →  PerspectiveMemento
- *   Originator      →  Perspective
- *   Caretaker       →  CommandManager (via les Command)
- *   state           →  zoomFactor, translateX, translateY
- *   getState()      →  getters ci-dessous
+ *   Memento >  PerspectiveMemento
+ *   Originator >  Perspective
+ *   Caretaker >  CommandManager (via les Command)
+ *   state  >  zoomFactor, translateX, translateY
+ *   getState() >  getters ci-dessous
  */
 public class PerspectiveMemento implements Serializable {
 
@@ -33,10 +33,7 @@ public class PerspectiveMemento implements Serializable {
         this.translateY = perspective.getTranslateY();
     }
 
-    // -------------------------------------------------------------------------
-    // Getters (lecture seule — le Memento ne doit pas être modifiable)
-    // -------------------------------------------------------------------------
-
+    // Getters (lecture seule : le Memento ne doit pas être modifiable)
     public double getZoomFactor() { return zoomFactor; }
     public double getTranslateX() { return translateX; }
     public double getTranslateY() { return translateY; }

@@ -6,32 +6,28 @@ import java.util.Deque;
 import pattern.Command;
 
 /**
- * Patron Singleton — instance unique de la gestion des commandes.
- * Patron Command   — mémorise les commandes exécutées pour undo/redo.
+ * Patron Singleton : instance unique de la gestion des commandes.
+ * Patron Command  : mémorise les commandes exécutées pour undo/redo.
  *
  * Le CommandManager est le "Caretaker" du patron Memento :
  * il délègue la sauvegarde d'état aux commandes elles-mêmes.
  *
  * Correspondance patron Singleton :
- *   Singleton        →  CommandManager
- *   instance         →  instance (static)
- *   getInstance()    →  getInstance()
+ *   Singleton > CommandManager
+ *   instance > instance (static)
+ *   getInstance() >  getInstance()
  *
  * Correspondance patron Command :
- *   Invoker          →  CommandManager
- *   executeCommand() →  executeCommand()
- *   undo()           →  undo()
- *   redo()           →  redo()
+ *   Invoker >  CommandManager
+ *   executeCommand() >  executeCommand()
+ *   undo() >  undo()
+ *   redo() >  redo()
  */
 public class CommandManager {
 
-    // -------------------------------------------------------------------------
-    // Patron Singleton
-    // -------------------------------------------------------------------------
-
     private static CommandManager instance;
 
-    /** Constructeur privé — empêche l'instanciation directe */
+    /** Constructeur privé empêche l'instanciation directe */
     private CommandManager() {}
 
     /** Point d'accès global unique à l'instance */
@@ -42,17 +38,12 @@ public class CommandManager {
         return instance;
     }
 
-    // -------------------------------------------------------------------------
+    
     // Piles des commandes
-    // -------------------------------------------------------------------------
-
     private final Deque<Command> undoStack = new ArrayDeque<>();
     private final Deque<Command> redoStack = new ArrayDeque<>();
 
-    // -------------------------------------------------------------------------
     // Opérations
-    // -------------------------------------------------------------------------
-
     /**
      * Exécute une commande, la mémorise dans la pile undo,
      * et vide la pile redo (un nouveau geste annule le redo).
@@ -95,10 +86,7 @@ public class CommandManager {
         redoStack.clear();
     }
 
-    // -------------------------------------------------------------------------
     // État
-    // -------------------------------------------------------------------------
-
     public boolean canUndo() { return !undoStack.isEmpty(); }
     public boolean canRedo() { return !redoStack.isEmpty(); }
 

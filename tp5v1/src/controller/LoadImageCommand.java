@@ -11,11 +11,11 @@ import pattern.Command;
 import singleton.CommandManager;
 
 /**
- * Patron Command — opération de chargement d'une image.
- * Déclenché par le menu Fichier → Charger image.
+ * Patron Command : opération de chargement d'une image.
+ * Déclenché par le menu Fichier > Charger image.
  *
  * Note : le chargement d'une image n'est pas annulable (undo non supporté
- * pour cette commande — vider la pile undo à l'ouverture est le comportement
+ * pour cette commande : vider la pile undo à l'ouverture est le comportement
  * standard dans ce type d'application).
  *
  */
@@ -25,7 +25,7 @@ public class LoadImageCommand implements Command {
     private final ImageModel imageModel;
 
     public LoadImageCommand(Stage stage, ImageModel imageModel) {
-        this.stage      = stage;
+        this.stage = stage;
         this.imageModel = imageModel;
     }
 

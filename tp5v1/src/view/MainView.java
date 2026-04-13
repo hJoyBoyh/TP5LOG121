@@ -36,9 +36,9 @@ import singleton.CommandManager;
  *   - droite  : PerspectiveView #2
  *
  * Menus :
- *   Fichier       → Charger image | Sauvegarder/Charger perspective | Quitter
- *   Édition       → Undo (Ctrl+Z) | Redo (Ctrl+Y)
- *   Presse-Papier → Copier Vue1→Vue2 avec stratégie | Réinitialiser vues
+ *   Fichier > Charger image | Sauvegarder/Charger perspective | Quitter
+ *   Édition > Undo (Ctrl+Z) | Redo (Ctrl+Y)
+ *   Presse-Papier > Copier Vue1→Vue2 avec stratégie | Réinitialiser vues
  */
 public class MainView {
 
@@ -62,10 +62,7 @@ public class MainView {
         this.perspective2 = perspective2;
     }
 
-    // -------------------------------------------------------------------------
     // Construction de la scène
-    // -------------------------------------------------------------------------
-
     public void show() {
         BorderPane root = new BorderPane();
         root.setTop(buildMenuBar());
@@ -75,7 +72,7 @@ public class MainView {
         perspectiveView1 = new PerspectiveView(imageModel, perspective1);
         perspectiveView2 = new PerspectiveView(imageModel, perspective2);
 
-        // Double-clic → ResetCommand sur chaque vue
+        // Double-clic > ResetCommand sur chaque vue
         perspectiveView1.getCanvas().setOnMouseClicked(e -> {
             if (e.getClickCount() == 2) {
                 CommandManager.getInstance().executeCommand(
@@ -130,21 +127,17 @@ public class MainView {
             );
         } catch (Exception ignored) {}
 
-        stage.setTitle("Laboratoire MVC — Image et perspectives");
+        stage.setTitle("Laboratoire MVC: Image et perspectives");
         stage.setMinWidth(700);
         stage.setMinHeight(400);
         stage.setScene(scene);
         stage.show();
     }
 
-    // -------------------------------------------------------------------------
     // Barre de menu
-    // -------------------------------------------------------------------------
-
     private MenuBar buildMenuBar() {
         MenuBar menuBar = new MenuBar();
 
-        // ---- Fichier ----
         Menu fichier = new Menu("Fichier");
 
         MenuItem loadItem = new MenuItem("Charger image");
@@ -169,7 +162,7 @@ public class MainView {
                 new SeparatorMenuItem(), quitItem
         );
 
-        // ---- Édition ----
+        // Édition 
         Menu edition = new Menu("Édition");
 
         undoItem = new MenuItem("Undo");
@@ -191,11 +184,11 @@ public class MainView {
         edition.setOnShowing(e -> refreshUndoRedoState());
         edition.getItems().addAll(undoItem, redoItem);
 
-        // ---- Presse-Papier ----
+        //  Presse-Papier 
         Menu pressePapier = new Menu("Presse-Papier");
 
-        // Copier Vue1 → Vue2
-        Menu copyV1toV2 = new Menu("Copier Vue 1 → Vue 2");
+        // Copier Vue1 > Vue2
+        Menu copyV1toV2 = new Menu("Copier Vue 1 -> Vue 2");
         MenuItem pasteZoom1to2 = new MenuItem("Zoom seulement");
         pasteZoom1to2.setOnAction(e -> paste(perspective1, perspective2, new ZoomOnlyStrategy()));
 
@@ -206,8 +199,8 @@ public class MainView {
         pasteFull1to2.setOnAction(e -> paste(perspective1, perspective2, new FullCopyStrategy()));
         copyV1toV2.getItems().addAll(pasteZoom1to2, pasteTrans1to2, pasteFull1to2);
 
-        // Copier Vue2 → Vue1
-        Menu copyV2toV1 = new Menu("Copier Vue 2 → Vue 1");
+        // Copier Vue2 > Vue1
+        Menu copyV2toV1 = new Menu("Copier Vue 2 -> Vue 1");
         MenuItem pasteZoom2to1 = new MenuItem("Zoom seulement");
         pasteZoom2to1.setOnAction(e -> paste(perspective2, perspective1, new ZoomOnlyStrategy()));
 

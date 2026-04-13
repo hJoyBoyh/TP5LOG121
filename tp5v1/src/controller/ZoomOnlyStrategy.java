@@ -4,19 +4,19 @@ import model.Perspective;
 import pattern.CopyStrategy;
 
 /**
- * Patron Strategy — copie UNIQUEMENT le facteur de zoom.
+ * Patron Strategy : copie UNIQUEMENT le facteur de zoom.
  * La translation de la cible n'est pas modifiée.
  *
  * Correspondance patron Strategy :
- *   Strategy         →  CopyStrategy (interface)
- *   ConcreteStrategy →  ZoomOnlyStrategy
- *   algorithm()      →  apply(source, target)
+ *   Strategy >  CopyStrategy (interface)
+ *   ConcreteStrategy > ZoomOnlyStrategy
+ *   algorithm() > apply(source, target)
  */
 public class ZoomOnlyStrategy implements CopyStrategy {
 
     @Override
     public void apply(Perspective source, Perspective target) {
-        // Copier seulement le zoom — garder la translation courante de la cible
+        // Copier seulement le zoom : garder la translation courante de la cible
         target.restoreState(
                 source.getZoomFactor(),
                 target.getTranslateX(),   // inchangée
